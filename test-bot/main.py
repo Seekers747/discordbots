@@ -21,6 +21,26 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    await member.send(f'Welcome to the server, {member.name}!')
+    await member.send(f"""
+Welcome to the PsyBison Discord community
+
+Hey, and thanks for joining.
+You’re now part of the official PsyBison community.
+
+This server is built around my music and content, but it’s also a place to hang out, talk, and connect with others.
+
+What you can do here
+Stay up to date with new music and releases
+Chat, chill, and socialize
+Join discussions, events, and community activities
+Share feedback, creativity, and ideas
+
+Make sure to check the rules and explore the channels so you know where everything is.
+
+Most importantly — be yourself and enjoy your time here.
+Glad to have you with us.
+
+— PsyBison 
+                      """)
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
