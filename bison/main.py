@@ -21,6 +21,8 @@ class MyBot(commands.Bot):
         guild = discord.Object(id=GUILD_ID)
 
         await self.load_extension('socials')
+        # feedtracker.py is currently disabled
+        # await self.load_extension('feedtracker')
 
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
