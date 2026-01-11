@@ -34,8 +34,13 @@ bot = MyBot()
 async def on_ready():
     print(f'Logged in as {bot.user.name} - {bot.user.id}')
     print('------')
+    await run_loops()
+
+async def run_loops():
     if not daily_song.is_running():
         daily_song.start()
+    if not update_member_count.is_running():
+        update_member_count.start()
 
 # say hello command
 @bot.tree.command(name="hello", description="Responds with a greeting")
@@ -89,6 +94,38 @@ async def daily_song():
         f"**URL:** {song['url']}"
     )
     print("Daily song sent.")
+
+@tasks.loop(seconds=60)
+async def update_member_count():
+    print("Updating member count...")
+    await bot.wait_until_ready()
+
+    GUILD_ID = 1318926273829142550
+    VC_CHANNEL_ID = 1459895164263731244
+    ROLE_ID = 1318945370742722700
+
+    guild = bot.get_guild(GUILD_ID)
+    if guild is None:
+        return
+
+    channel = guild.get_channel(VC_CHANNEL_ID)
+    if channel is None:
+        return
+    
+    role = guild.get_role(ROLE_ID)
+    if role is None:
+        return
+
+    member_count = len(role.members)
+
+    # Update the VC name
+    try:
+        await channel.edit(name=f"Members: {member_count}")
+        print(f"Updated member count to: {member_count}")
+    except discord.Forbidden:
+        print("Missing permissions to edit the VC!")
+    except discord.HTTPException as e:
+        print(f"Failed to edit VC: {e}")
 
 # Run bot
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
