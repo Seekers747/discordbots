@@ -107,17 +107,9 @@ class Socials(commands.Cog):
             self, 
             interaction: 
             discord.Interaction, 
-            platform: Optional[app_commands.Choice[str]] = None
+            platform: app_commands.Choice[str]
         ):
 
-        if platform is None:
-            message = "\n".join(
-                f"**{key.capitalize()}**: {value}"
-                for key, value in socials_data.items()
-            )
-            await interaction.response.send_message(message)
-            return
-        
         url = socials_data.get(platform.value)
 
         if url:
