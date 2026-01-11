@@ -1,8 +1,6 @@
 import discord, logging, os, json, random
 from discord.ext import commands, tasks # pyright: ignore[reportMissingImports]
 from dotenv import load_dotenv # pyright: ignore[reportMissingImports]
-from discord import app_commands
-from typing import Optional
 
 # Load tokens
 load_dotenv()
@@ -22,7 +20,7 @@ class MyBot(commands.Bot):
         GUILD_ID = 1318926273829142550
         guild = discord.Object(id=GUILD_ID)
 
-        await self.add_cog(Socials(self))
+        await self.load_extension('socials')
 
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
@@ -88,34 +86,7 @@ async def daily_song():
         f"**Title:** {song['title']}\n"
         f"**URL:** {song['url']}"
     )
-
-with open('socials.json', 'r') as f:
-    socials_data = json.load(f)
-socials_data_keys = list(socials_data.keys())
-
-class Socials(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-
-    @app_commands.command(name="socials", description="Get social links")
-    
-    @app_commands.choices(platform=[
-        app_commands.Choice(name=key.capitalize(), value=key) for key in socials_data_keys
-    ])
-    
-    async def socials(
-            self, 
-            interaction: 
-            discord.Interaction, 
-            platform: app_commands.Choice[str]
-        ):
-
-        url = socials_data.get(platform.value)
-
-        if url:
-            await interaction.response.send_message(f"My {platform.name} link: {url}")
-        else:
-            await interaction.response.send_message("Sorry, I don't have that social media link.")
+    print("Daily song sent.")
 
 # Run bot
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
