@@ -1,116 +1,115 @@
-# Discord Bots
+# Discord Bots Collection
 
-A collection of Discord bots for community management and engagement.
+A growing collection of custom Discord bots for various communities and purposes. Each bot is designed to be modular, extensible, and easy to customize for different use cases.
 
-## 🤖 Bots
+## 🤖 Current Bots
 
 ### Bison Bot
+A community management bot built for the PsyBison Discord server featuring automated member engagement, social media tracking, and content delivery systems.
 
-A feature-rich Discord bot designed for the PsyBison community with automated member management, social media tracking, and daily content delivery.
+**Core Features:**
+- Automated welcome system with custom messaging
+- Daily content delivery (songs, posts, etc.)
+- Real-time member statistics tracking
+- Social media feed monitoring
+- Community issue tracking
 
-#### Features
+**Extension System:**
+- `socials.py` - Social media integration module
+- `issues.py` - Issue tracking and management module
+- `feedtracker.py` - RSS/feed tracking (currently disabled, ready for future use)
 
-- **Welcome System**: Automatically sends personalized welcome messages to new members
-- **Daily Song**: Posts a random song daily from a curated playlist
-- **Member Counter**: Real-time member count display in a voice channel
-- **Social Media Integration**: Track and monitor social media feeds (via socials.py extension)
-- **Issue Tracking**: Manage community issues and feedback (via issues.py extension)
+---
 
-#### Commands
+## 🔧 Architecture & Customization
 
-- `/hello` - Get a friendly greeting from the bot
+### Modular Design
+Each bot uses Discord.py's extension (cog) system, making it easy to add, remove, or modify features without touching the core bot logic.
 
-## 🚀 Setup
+### Configurable Components
 
-### Prerequisites
+**IDs & Targeting:**
+- Guild/Server IDs
+- Channel IDs (for daily posts, announcements, etc.)
+- Role IDs (for member counting, permissions)
+- User IDs (for specific user targeting)
 
-- Python 3.8 or higher
-- Discord Bot Token
-- Discord Server with appropriate permissions
+**Task Loops:**
+- Interval timing (daily, hourly, by minute)
+- Task scheduling and automation
+- Background processes
 
-### Installation
+**Data Storage:**
+- JSON-based data files for easy modification
+- `songs.json` - Content database (easily expandable)
+- `socials.json` - Social media configurations
+- `youtube_tracked.json` - Tracking data
+- Additional data files can be added as needed
 
-1. Clone this repository:
-```bash
-git clone https://github.com/Seekers747/discordbots.git
-cd discordbots/bison
-```
+**Commands:**
+- Slash command system
+- Easy to add new commands via Discord.py tree
+- Guild-specific or global command deployment
 
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+### Extension Points
 
-3. Create a `.env` file in the `bison` directory:
-```env
-DISCORD_TOKEN=your_discord_token_here
-```
+The bot framework is designed to be extended:
+- Add new cogs/extensions for additional features
+- Implement new task loops for automated behaviors
+- Create custom event handlers
+- Expand data models with new JSON schemas
 
-4. Configure your settings in `main.py`:
-   - Set your `GUILD_ID`
-   - Set your channel IDs for daily songs and member counter
-   - Set your role IDs as needed
-
-5. Prepare your data files:
-   - `songs.json` - List of songs for daily song feature
-   - `socials.json` - Social media tracking configuration
-
-### Running the Bot
-
-```bash
-cd bison
-python main.py
-```
+---
 
 ## 📁 Project Structure
 
 ```
 discordbots/
-└── bison/
-    ├── main.py              # Main bot file with core functionality
-    ├── socials.py           # Social media tracking extension
-    ├── issues.py            # Issue tracking extension
-    ├── feedtracker.py       # Feed tracking extension (disabled)
-    ├── requirements.txt     # Python dependencies
-    ├── songs.json           # Song database for daily posts
-    ├── socials.json         # Social media configuration
-    ├── youtube_tracked.json # YouTube tracking data
-    └── .gitignore          # Git ignore rules
+├── bison/                   # Bison community bot
+│   ├── main.py             # Core bot + task loops
+│   ├── socials.py          # Social media extension
+│   ├── issues.py           # Issue tracking extension
+│   ├── feedtracker.py      # Feed tracker (disabled)
+│   ├── requirements.txt    # Dependencies
+│   └── *.json             # Data files
+│
+└── [future bots]/          # Additional bots to be added
 ```
 
-## 🔧 Configuration
-
-### Environment Variables
-
-- `DISCORD_TOKEN` - Your Discord bot token (required)
-
-### Bot Settings
-
-Edit `main.py` to configure:
-- Guild/Server ID
-- Channel IDs for features
-- Role IDs for member counting
-- Task intervals (daily song, member count updates)
-
-## 📝 Dependencies
-
-- `discord.py` - Discord API wrapper
-- `python-dotenv` - Environment variable management
-
-## 🤝 Contributing
-
-Feel free to fork this repository and submit pull requests for any improvements.
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
-## 💡 Future Features
-
-- RSS feed tracking (feedtracker.py currently disabled)
-- Additional community engagement commands
-- Enhanced social media monitoring
+Each bot folder contains:
+- Main bot file with core functionality
+- Extension modules for specific features
+- Configuration and data files
+- Dependencies list
 
 ---
 
-Made with ❤️ for the PsyBison community
+## 🚀 Technical Stack
+
+- **Discord.py** - Discord API wrapper with slash command support
+- **python-dotenv** - Environment variable management
+- **Task Loops** - Discord.py's built-in scheduled task system
+- **JSON Storage** - Simple, readable data persistence
+
+---
+
+## 🎯 Future Expansion
+
+This repository will grow to include:
+- Additional community bots for different servers
+- New feature modules and extensions
+- Enhanced automation capabilities
+- Improved data tracking and analytics
+- Cross-bot shared utilities
+
+Each bot is built with scalability in mind, allowing features to be easily adapted, reused, or expanded upon.
+
+---
+
+## 📝 Notes
+
+This is a personal project showcasing custom Discord bot development. Each bot is tailored to specific community needs and serves as a reference for modular bot architecture.
+
+---
+
+Made with ❤️ for Discord communities
