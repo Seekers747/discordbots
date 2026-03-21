@@ -22,8 +22,6 @@ class MyBot(commands.Bot):
 
         await self.load_extension('socials')
         await self.load_extension('issues')
-        # feedtracker.py is currently disabled
-        # await self.load_extension('feedtracker')
 
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild)
